@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>2591. Distribute Money to Maximum Children</title>
+    <url>/2591-Distribute-Money-to-Maximum-Children/</url>
+    <content><![CDATA[<h3 id="2591-Distribute-Money-to-Maximum-Children"><a href="#2591-Distribute-Money-to-Maximum-Children" class="headerlink" title="2591. Distribute Money to Maximum Children"></a><a href="https://leetcode.com/problems/distribute-money-to-maximum-children/">2591. Distribute Money to Maximum Children</a></h3><hr>
+<h4 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h4><ul>
+<li><p>You are given an integer money denoting the amount of money (in dollars) that you have and another integer children denoting the number of children that you must distribute the money to.</p>
+</li>
+<li><p>You have to distribute the money according to the following rules:</p>
+<ul>
+<li>All money must be distributed.</li>
+<li>Everyone must receive at least 1 dollar.</li>
+<li>Nobody receives 4 dollars.</li>
+</ul>
+</li>
+<li><p>Return the maximum number of children who may receive exactly 8 dollars if you distribute the money according to the aforementioned rules. If there is no way to distribute the money, return -1.</p>
+</li>
+</ul>
+<hr>
+<h3 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h3><ul>
+<li>覺得這題corner case 很多 需要好好思考  最後是用 simulate </li>
+<li>自己也錯了不少QQ</li>
+<li><del>不宜參考</del></li>
+</ul>
+<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">distMoney</span><span class="params">(<span class="type">int</span> money, <span class="type">int</span> children)</span> </span>&#123;</span><br><span class="line">        money = money - children;</span><br><span class="line">        <span class="keyword">if</span>(money &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">get</span> <span class="params">(children,<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;get.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(money - <span class="number">7</span> &gt;=<span class="number">0</span>)&#123;</span><br><span class="line">                money = money <span class="number">-7</span>;</span><br><span class="line">                get[i] = get[i] + <span class="number">7</span>;</span><br><span class="line">                res ++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                get[i] = get[i] + money;</span><br><span class="line">                money = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span>(get[i] == <span class="number">4</span> &amp;&amp; i==get.<span class="built_in">size</span>()<span class="number">-1</span>)&#123;</span><br><span class="line">                    res --;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(money &gt; <span class="number">0</span>) res --;</span><br><span class="line">        <span class="keyword">return</span> res &lt; <span class="number">0</span> ? <span class="number">0</span> : res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Leetcode_Biweekly_Contest_100</tag>
+        <tag>LeetCode_Easy</tag>
+      </tags>
+  </entry>
+</search>
