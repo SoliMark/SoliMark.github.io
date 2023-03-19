@@ -112,3 +112,11 @@ deploy:
   repo: https://github.com/SoliMark/SoliMark.github.io.git
   branch: master
   message: "first commit"
+
+# Search
+search:
+  #path: search.js
+  path: search.xml
+  field: post
+  format: html
+  limit: 1000
